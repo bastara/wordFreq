@@ -1,8 +1,8 @@
 import java.io.*;
 import java.sql.*;
 
-public class AddWords {
-    public void addWords() throws IOException, SQLException, ClassNotFoundException {
+class AddWords {
+    void addWords() throws IOException, SQLException, ClassNotFoundException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("c:/myProgDict/addResult.txt"));
              BufferedReader br = new BufferedReader(new FileReader("c:/myProgDict/output.txt"))) {
 //            statement.executeUpdate("create table Dera(id MEDIUMINT NOT NULL AUTO_INCREMENT, name CHAR(30) NOT NULL , PRIMARY KEY (id));");
