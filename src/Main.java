@@ -28,14 +28,14 @@ public class Main {
 //            System.out.println("______________________________________");
 //        }
 //
-////        URL url = new URL("https://wooordhunt.ru/word/property");
-////        try (BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()))) {
-////            String line;
-////            while ((line = in.readLine()) != null) {
-////                System.out.println(line);
-////            }
-////        }
-//
+//        URL url = new URL("https://wooordhunt.ru/word/property");
+//        try (BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()))) {
+//            String line;
+//            while ((line = in.readLine()) != null) {
+//                System.out.println(line);
+//            }
+//        }
+
 //        Document document = Jsoup.connect("https://wooordhunt.ru/word/oceanfront").get();
 //        System.out.println(document.title());
 //
