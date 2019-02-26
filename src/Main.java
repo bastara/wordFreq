@@ -62,6 +62,7 @@ public class Main {
         System.out.println("Выбери операцию:");
         System.out.println("1-обработать файл");
         System.out.println("2-добавить новые слова в словарь");
+        System.out.println("3-заполнить новые слова");
 
         Scanner scanner = new Scanner(System.in);
         int i = scanner.nextInt();
@@ -71,5 +72,9 @@ public class Main {
         if (i == 2) {
             new AddWords().addWords();
         }
+        if (i == 3) {
+            new CompleteWords().completeWords();
+        }
+//        new CompleteWords().completeWords();
     }
 }
