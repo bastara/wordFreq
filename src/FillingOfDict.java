@@ -28,8 +28,8 @@ public class FillingOfDict {
 
 
 //            ResultSet resultSet = statement.executeQuery("SELECT word, renew ,frequencyP FROM dictionary WHERE renew=false AND frequencyP=9");
-//            ResultSet resultSet = statement.executeQuery("SELECT word, renew ,frequencyP FROM dictionary WHERE renew=false");
-            ResultSet resultSet = statement.executeQuery("SELECT word, renew ,frequencyP FROM dictionary WHERE frequencyP=6 and renew=false ");
+            ResultSet resultSet = statement.executeQuery("SELECT word, renew ,frequencyP FROM dictionary WHERE renew=false");
+//            ResultSet resultSet = statement.executeQuery("SELECT word, renew ,frequencyP FROM dictionary WHERE frequencyP=6 and renew=false ");
 
             while (resultSet.next()) {
                 String wordFromDict = resultSet.getString("word");
@@ -77,8 +77,12 @@ public class FillingOfDict {
 //                System.out.println(pastTense2);
                 }
                 String pastParticiple3 = null;
-                if (allText.indexOf("3-я ф. (past participle): ") > 0 && allText.indexOf("noun") > 0) {
-                    pastParticiple3 = allText.substring(allText.indexOf("3-я ф. (past participle): ") + 26, allText.indexOf("noun") - 1);
+                if (allText.indexOf("3-я ф. (past participle): ") > 0) {
+                    if (allText.indexOf("3-я ф. (past participle): ") < allText.indexOf("noun ед. ч.")) {
+                        pastParticiple3 = allText.substring(allText.indexOf("3-я ф. (past participle): ") + 26, allText.indexOf("noun ед. ч.") - 1);
+                    } else {
+                        pastParticiple3 = allText.substring(allText.indexOf("3-я ф. (past participle): ") + 26, 26 + allText.substring(allText.indexOf("3-я ф. (past participle): "), 26 + allText.indexOf("3-я ф. (past participle): ") + 100).indexOf(" ") + allText.indexOf("3-я ф. (past participle): "));
+                    }
 //                System.out.println(pastParticiple3);
                 }
                 String singular = null;
@@ -88,8 +92,13 @@ public class FillingOfDict {
                 }
                 String plural = null;
                 if (allText.indexOf("мн. ч.(plural): ") > 0 && allText.indexOf("Дополнение / ") > 0) {
-                    plural = allText.substring(allText.indexOf("мн. ч.(plural): ") + 16, allText.indexOf("Дополнение / ") - 1);
+                    if (allText.substring(allText.indexOf("мн. ч.(plural): "), 200 + allText.indexOf("мн. ч.(plural): ")).indexOf("adjective") > 0) {
+                        plural = allText.substring(allText.indexOf("мн. ч.(plural): ") + 16, allText.indexOf("мн. ч.(plural): ") + 15 + allText.indexOf("adjective"));
+                    } else {
+                        plural = allText.substring(allText.indexOf("мн. ч.(plural): ") + 16, allText.indexOf("Дополнение / ") - 1);
 //                System.out.println(plural);
+                    }
+
                 }
                 String[] transcriptionArray = new String[2];
                 int count = 0;
@@ -106,8 +115,8 @@ public class FillingOfDict {
                 }
 
                 statement.executeUpdate("update dictionary set transcriptionA='" + transcriptionArray[0] + "', transcriptionE='" + transcriptionArray[1] + "', translate='" + forms.text() + "', frequencyW='" + freq + "', renew=true, iyouwethey='" + iyouwethey + "', hesheit='" + hesheit + "', ing='" + ing + "',pastTense2='" + pastTense2 + "',pastParticiple3='" + pastParticiple3 + "',singular='" + singular + "',plural='" + plural + "' WHERE word='" + wordFromDict + "';");
-//                resultSet = statement.executeQuery("SELECT word, renew ,frequencyP FROM dictionary WHERE renew=false");
-                resultSet = statement.executeQuery("SELECT word, renew ,frequencyP FROM dictionary WHERE frequencyP=6 and renew=false ");
+                resultSet = statement.executeQuery("SELECT word, renew ,frequencyP FROM dictionary WHERE renew=false");
+//                resultSet = statement.executeQuery("SELECT word, renew ,frequencyP FROM dictionary WHERE frequencyP=6 and renew=false ");
             }
 
 

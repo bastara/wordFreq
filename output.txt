@@ -1,4 +1,7 @@
+mean 6
 lucket 6
 bucket 6
 lay 6
 dream 6
+left 6
+say 6
