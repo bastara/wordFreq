@@ -28,7 +28,8 @@ public class FillingOfDict {
 
 
 //            ResultSet resultSet = statement.executeQuery("SELECT word, renew ,frequencyP FROM dictionary WHERE renew=false AND frequencyP=9");
-            ResultSet resultSet = statement.executeQuery("SELECT word, renew ,frequencyP FROM dictionary WHERE renew=false");
+//            ResultSet resultSet = statement.executeQuery("SELECT word, renew ,frequencyP FROM dictionary WHERE renew=false");
+            ResultSet resultSet = statement.executeQuery("SELECT word, renew ,frequencyP FROM dictionary WHERE frequencyP=6 and renew=false ");
 
             while (resultSet.next()) {
                 String wordFromDict = resultSet.getString("word");
@@ -43,10 +44,53 @@ public class FillingOfDict {
                 Elements transcription = document.select(".transcription");
                 System.out.println(transcription);
 
-//                for (Element t : transcription) {
-//                    System.out.println(t.attr("title"));
+//                Elements span = document.select("span");
+//
+//
+//                for (Element element : span) {
+//                    System.out.println(element.text());
 //                }
 
+                System.out.println("++++++++++++++++++++++++++");
+//                Elements allText = document.select("span:containsOwn(I/you/we/they)");
+//                System.out.println(allText.text());
+
+                String allText = document.text();
+                String iyouwethey = null;
+                if (allText.indexOf("I/you/we/they: ") > 0 && allText.indexOf("he/she/it:") > 0) {
+                    iyouwethey = allText.substring(allText.indexOf("I/you/we/they: ") + 15, allText.indexOf("he/she/it:") - 1);
+//                System.out.println(iyouwethey);
+                }
+                String hesheit = null;
+                if (allText.indexOf("he/she/it: ") > 0 && allText.indexOf("ing ф") > 0) {
+                    hesheit = allText.substring(allText.indexOf("he/she/it: ") + 11, allText.indexOf("ing ф") - 1);
+//                System.out.println(hesheit);
+                }
+                String ing = null;
+                if (allText.indexOf("ing ф") > 0 && allText.indexOf("2-я ф. (past tense):") > 0) {
+                    ing = allText.substring(allText.indexOf("ing ф") + 29, allText.indexOf("2-я ф. (past tense):") - 1);
+//                System.out.println(ing);
+                }
+                String pastTense2 = null;
+                if (allText.indexOf("2-я ф. (past tense): ") > 0 && allText.indexOf("3-я ф. (past participle):") > 0) {
+                    pastTense2 = allText.substring(allText.indexOf("2-я ф. (past tense): ") + 21, allText.indexOf("3-я ф. (past participle):") - 1);
+//                System.out.println(pastTense2);
+                }
+                String pastParticiple3 = null;
+                if (allText.indexOf("3-я ф. (past participle): ") > 0 && allText.indexOf("noun") > 0) {
+                    pastParticiple3 = allText.substring(allText.indexOf("3-я ф. (past participle): ") + 26, allText.indexOf("noun") - 1);
+//                System.out.println(pastParticiple3);
+                }
+                String singular = null;
+                if (allText.indexOf("ед. ч.(singular): ") > 0 && allText.indexOf("мн. ч.(plural): ") > 0) {
+                    singular = allText.substring(allText.indexOf("ед. ч.(singular): ") + 18, allText.indexOf("мн. ч.(plural): ") - 1);
+//                System.out.println(singular);
+                }
+                String plural = null;
+                if (allText.indexOf("мн. ч.(plural): ") > 0 && allText.indexOf("Дополнение / ") > 0) {
+                    plural = allText.substring(allText.indexOf("мн. ч.(plural): ") + 16, allText.indexOf("Дополнение / ") - 1);
+//                System.out.println(plural);
+                }
                 String[] transcriptionArray = new String[2];
                 int count = 0;
                 for (Element t : transcription) {
@@ -61,8 +105,9 @@ public class FillingOfDict {
                     freq = rank.text();
                 }
 
-                statement.executeUpdate("update dictionary set transcriptionA='" + transcriptionArray[0] + "', transcriptionE='" + transcriptionArray[1] + "', translate='" + forms.text() + "', frequencyW='" + freq + "', renew=true WHERE word='" + wordFromDict + "';");
-                resultSet = statement.executeQuery("SELECT word, renew ,frequencyP FROM dictionary WHERE renew=false");
+                statement.executeUpdate("update dictionary set transcriptionA='" + transcriptionArray[0] + "', transcriptionE='" + transcriptionArray[1] + "', translate='" + forms.text() + "', frequencyW='" + freq + "', renew=true, iyouwethey='" + iyouwethey + "', hesheit='" + hesheit + "', ing='" + ing + "',pastTense2='" + pastTense2 + "',pastParticiple3='" + pastParticiple3 + "',singular='" + singular + "',plural='" + plural + "' WHERE word='" + wordFromDict + "';");
+//                resultSet = statement.executeQuery("SELECT word, renew ,frequencyP FROM dictionary WHERE renew=false");
+                resultSet = statement.executeQuery("SELECT word, renew ,frequencyP FROM dictionary WHERE frequencyP=6 and renew=false ");
             }
 
 
