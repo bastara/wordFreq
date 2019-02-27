@@ -28,7 +28,7 @@ class AddWords {
                     System.out.println(wordInDict + " " + wordS);
 
                     if (!wordInDict) {
-                        statement.executeUpdate("insert into dictionary (word, frequencyP, newWord) values ('" + wordS + "','" + freq + "',true);");
+                        statement.executeUpdate("insert into dictionary (word, frequencyP, newWord,renew) values ('" + wordS + "','" + freq + "',true,false );");
                         count++;
                     }
                 }

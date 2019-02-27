@@ -6,8 +6,8 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.sql.*;
 
-public class CompleteWords {
-    public void completeWords() throws ClassNotFoundException, SQLException, IOException {
+public class FillingOfDict {
+    public void fillingOfDict() throws ClassNotFoundException, SQLException, IOException {
         String userName = "root";
         String password = "1234";
         String connectionUrl = "jdbc:mysql://localhost:3306/words?useSSL=false";
@@ -27,7 +27,8 @@ public class CompleteWords {
 //        }
 
 
-            ResultSet resultSet = statement.executeQuery("SELECT word, newWord,frequencyP FROM dictionary WHERE newWord=true AND frequencyP=9");
+//            ResultSet resultSet = statement.executeQuery("SELECT word, renew ,frequencyP FROM dictionary WHERE renew=false AND frequencyP=9");
+            ResultSet resultSet = statement.executeQuery("SELECT word, renew ,frequencyP FROM dictionary WHERE renew=false");
 
             while (resultSet.next()) {
                 String wordFromDict = resultSet.getString("word");
@@ -49,17 +50,19 @@ public class CompleteWords {
                 String[] transcriptionArray = new String[2];
                 int count = 0;
                 for (Element t : transcription) {
-                    System.out.println(t.text());
                     transcriptionArray[count] = t.text();
+                    System.out.println(transcriptionArray[count]);
+                    count++;
                 }
 
                 Element rank = document.getElementById("rank_box");
-//                System.out.println(rank.text());
+                String freq = "НД";
+                if (rank != null) {
+                    freq = rank.text();
+                }
 
-//                statement.executeUpdate("UPDATE dictionary (, frequencyP, newWord) values ('" + wordS + "','" + freq + "',true) WHERE word='" + wordFromDict + "';");
-                statement.executeUpdate("update dictionary set transcriptionA='" + transcriptionArray[0] + "', transcriptionE='" + transcriptionArray[1] + "', translate='" + forms.text() + "', frequencyW='" + rank.text() + "', newWord=false WHERE word='" + wordFromDict + "';");
-//                int rows = statement.executeUpdate("UPDATE Products SET Price = Price - 5000");
-                resultSet = statement.executeQuery("SELECT word, newWord,frequencyP FROM dictionary WHERE newWord=true AND frequencyP=9");
+                statement.executeUpdate("update dictionary set transcriptionA='" + transcriptionArray[0] + "', transcriptionE='" + transcriptionArray[1] + "', translate='" + forms.text() + "', frequencyW='" + freq + "', renew=true WHERE word='" + wordFromDict + "';");
+                resultSet = statement.executeQuery("SELECT word, renew ,frequencyP FROM dictionary WHERE renew=false");
             }
 
 

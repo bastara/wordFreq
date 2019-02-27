@@ -1,13 +1,5 @@
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Scanner;
 
 
@@ -73,8 +65,8 @@ public class Main {
             new AddWords().addWords();
         }
         if (i == 3) {
-            new CompleteWords().completeWords();
+            new FillingOfDict().fillingOfDict();
         }
-//        new CompleteWords().completeWords();
+//        new FillingOfDict().fillingOfDict();
     }
 }
