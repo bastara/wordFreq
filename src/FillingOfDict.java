@@ -81,7 +81,7 @@ public class FillingOfDict {
                     if (allText.indexOf("3-я ф. (past participle): ") < allText.indexOf("noun ед. ч.")) {
                         pastParticiple3 = allText.substring(allText.indexOf("3-я ф. (past participle): ") + 26, allText.indexOf("noun ед. ч.") - 1);
                     } else {
-                        pastParticiple3 = allText.substring(allText.indexOf("3-я ф. (past participle): ") + 26, 26 + allText.substring(allText.indexOf("3-я ф. (past participle): "), 26 + allText.indexOf("3-я ф. (past participle): ") + 100).indexOf(" ") + allText.indexOf("3-я ф. (past participle): "));
+                        pastParticiple3 = allText.substring(allText.indexOf("3-я ф. (past participle): ") + 26, 26 + allText.substring(allText.indexOf("3-я ф. (past participle): "), allText.indexOf("3-я ф. (past participle): ") + 130).indexOf(" ") + allText.indexOf("3-я ф. (past participle): "));
                     }
 //                System.out.println(pastParticiple3);
                 }
@@ -91,9 +91,9 @@ public class FillingOfDict {
 //                System.out.println(singular);
                 }
                 String plural = null;
-                if (allText.indexOf("мн. ч.(plural): ") > 0 && allText.indexOf("Дополнение / ") > 0) {
+                if (allText.indexOf("мн. ч.(plural): ") > 0) {
                     if (allText.substring(allText.indexOf("мн. ч.(plural): "), 200 + allText.indexOf("мн. ч.(plural): ")).indexOf("adjective") > 0) {
-                        plural = allText.substring(allText.indexOf("мн. ч.(plural): ") + 16, allText.indexOf("мн. ч.(plural): ") + 15 + allText.indexOf("adjective"));
+                        plural = allText.substring(allText.indexOf("мн. ч.(plural): ") + 16, allText.indexOf("мн. ч.(plural): ") + allText.substring(allText.indexOf("мн. ч.(plural): "), 200 + allText.indexOf("мн. ч.(plural): ")).indexOf("adjective"));
                     } else {
                         plural = allText.substring(allText.indexOf("мн. ч.(plural): ") + 16, allText.indexOf("Дополнение / ") - 1);
 //                System.out.println(plural);
@@ -114,7 +114,23 @@ public class FillingOfDict {
                     freq = rank.text();
                 }
 
-                statement.executeUpdate("update dictionary set transcriptionA='" + transcriptionArray[0] + "', transcriptionE='" + transcriptionArray[1] + "', translate='" + forms.text() + "', frequencyW='" + freq + "', renew=true, iyouwethey='" + iyouwethey + "', hesheit='" + hesheit + "', ing='" + ing + "',pastTense2='" + pastTense2 + "',pastParticiple3='" + pastParticiple3 + "',singular='" + singular + "',plural='" + plural + "' WHERE word='" + wordFromDict + "';");
+                String form2 = null;
+                if (allText.indexOf("является 2-й формой глагола") > 0) {
+//                    form2 = allText.substring(allText.indexOf("является 2-й формой глагола") + 31, allText.indexOf("- является 3-й формой глагола") - 1);
+                    form2 = allText.substring(allText.indexOf("является 2-й формой глагола") + 31, 33 + allText.substring(allText.indexOf("- является 2-й формой глагола") + 33, allText.indexOf("- является 2-й формой глагола") + 130).indexOf(" ") + allText.indexOf("- является 2-й формой глагола"));
+//                System.out.println(form2);
+                }
+
+                String form3 = null;
+                if (allText.indexOf("является 3-й формой глагола") > 0) {
+                    form3 = allText.substring(allText.indexOf("является 3-й формой глагола") + 31, 33 + allText.substring(allText.indexOf("- является 3-й формой глагола") + 33, allText.indexOf("- является 3-й формой глагола") + 130).indexOf(" ") + allText.indexOf("- является 3-й формой глагола"));
+//                System.out.println(form2);
+                }
+
+
+                statement.executeUpdate("update dictionary set transcriptionA='" + transcriptionArray[0] + "', transcriptionE='" + transcriptionArray[1] + "', translate='" + forms.text() + "', frequencyW='" + freq + "', renew=true, iyouwethey='" + iyouwethey + "', hesheit='" + hesheit + "', ing='" + ing + "',pastTense2='" + pastTense2 + "',pastParticiple3='" + pastParticiple3 + "',singular='" + singular + "',plural='" + plural + "',form2='" + form2 + "',form3='" + form3 + "' WHERE word='" + wordFromDict + "';");
+
+
                 resultSet = statement.executeQuery("SELECT word, renew ,frequencyP FROM dictionary WHERE renew=false");
 //                resultSet = statement.executeQuery("SELECT word, renew ,frequencyP FROM dictionary WHERE frequencyP=6 and renew=false ");
             }

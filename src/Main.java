@@ -50,32 +50,42 @@ public class Main {
 //        System.out.println(rank.text());
 
 
-
-        System.out.println("Выбери операцию:");
-        System.out.println("1-обработать файл");
-        System.out.println("2-добавить новые слова в словарь");
-        System.out.println("3-заполнить новые слова");
-        System.out.println("4-обработка не найденных слов");
-
         Scanner scanner = new Scanner(System.in);
-        int i = scanner.nextInt();
-        if (i == 1) {
-            new WordFreq().processingTetx();
-        }
-        if (i == 2) {
-            new AddWords().addWords();
-        }
-        if (i == 3) {
-            new FillingOfDict().fillingOfDict();
-        }
-        if (i == 4) {
-            System.out.println("1-вывод всех слов для которых не найден перевод");
-            System.out.println("2-вывод слов для которых не найден перевод, пословно с обработкой");
+
+
+
+        int i;
+        do {
+            System.out.println("Выбери операцию:");
+            System.out.println("1-обработать файл");
+            System.out.println("2-добавить новые слова в словарь");
+            System.out.println("3-заполнить новые слова");
+            System.out.println("4-обработка не найденных слов");
+            System.out.println("n-создать текст для обработки со страницы сайта");
+            System.out.println("0-выход");
             i = scanner.nextInt();
-            if (i == 1) {
-                new WithoutTranslate().allWords();
+            if (i == 0) {
+                return;
             }
-        }
+            if (i == 1) {
+                new WordFreq().processingTetx();
+            }
+            if (i == 2) {
+                new AddWords().addWords();
+            }
+            if (i == 3) {
+                new FillingOfDict().fillingOfDict();
+            }
+            if (i == 4) {
+                System.out.println("1-вывод всех слов для которых не найден перевод");
+                System.out.println("2-вывод слов для которых не найден перевод, пословно с обработкой");
+                i = scanner.nextInt();
+                if (i == 1) {
+                    new WithoutTranslate().allWords();
+                }
+            }
+        } while (i < 10);
+
 
 //        new FillingOfDict().fillingOfDict();
     }

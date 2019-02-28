@@ -19,7 +19,7 @@ class AddWords {
                 String line;
                 int count = 0;
                 while ((line = br.readLine()) != null) {
-                    ResultSet resultSet = statement.executeQuery("SELECT word, frequencyW FROM dictionary");
+                    ResultSet resultSet = statement.executeQuery("SELECT word, iyouwethey,hesheit, ing, pastTense2,pastParticiple3,singular, plural,frequencyW FROM dictionary");
                     int pos = line.indexOf(" ");
                     String wordS = line.substring(0, pos);
                     int freq = Integer.parseInt(line.substring(pos + 1));
@@ -39,8 +39,28 @@ class AddWords {
 
     private boolean wordInDict(ResultSet resultSet, String wordS) throws SQLException {
         while (resultSet.next()) {
-            String wordFromDict = resultSet.getString("word");
-            if (wordS.equals(wordFromDict)) {
+            if (wordS.equals(resultSet.getString("word"))) {
+                return true;
+            }
+            if (wordS.equals(resultSet.getString("iyouwethey"))) {
+                return true;
+            }
+            if (wordS.equals(resultSet.getString("hesheit"))) {
+                return true;
+            }
+            if (wordS.equals(resultSet.getString("ing"))) {
+                return true;
+            }
+            if (wordS.equals(resultSet.getString("pastTense2"))) {
+                return true;
+            }
+            if (wordS.equals(resultSet.getString("pastParticiple3"))) {
+                return true;
+            }
+            if (wordS.equals(resultSet.getString("singular"))) {
+                return true;
+            }
+            if (wordS.equals(resultSet.getString("plural"))) {
                 return true;
             }
         }
