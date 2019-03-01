@@ -1,8 +1,8 @@
 import java.sql.*;
 
-public class WithoutTranslate {
+class WithoutTranslate {
 
-    public void allWords() throws ClassNotFoundException, SQLException {
+    void allWords() throws ClassNotFoundException, SQLException {
         String userName = "root";
         String password = "1234";
         String connectionUrl = "jdbc:mysql://localhost:3306/words?useSSL=false";
@@ -12,7 +12,7 @@ public class WithoutTranslate {
              Statement statement = connection.createStatement()) {
             System.out.println("We are connected");
 
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM dictionary WHERE translate='';");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM dictionary WHERE translate='' and src IS NULL ;");
 
             while (resultSet.next()) {
                 String wordFromDict = resultSet.getString("word");

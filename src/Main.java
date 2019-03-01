@@ -78,7 +78,7 @@ public class Main {
             }
             if (i == 4) {
                 System.out.println("1-вывод всех слов для которых не найден перевод");
-                System.out.println("2-вывод слов для которых не найден перевод, пословно с обработкой");
+                System.out.println("2-НЕ ГОТОВО вывод слов для которых не найден перевод, пословно с обработкой");
                 i = scanner.nextInt();
                 if (i == 1) {
                     new WithoutTranslate().allWords();
