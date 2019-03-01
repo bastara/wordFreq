@@ -12,21 +12,11 @@ public class FillingOfDict {
         String password = "1234";
         String connectionUrl = "jdbc:mysql://localhost:3306/words?useSSL=false";
         Class.forName("com.mysql.jdbc.Driver");
-        DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+//        DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+
         try (Connection connection = DriverManager.getConnection(connectionUrl, userName, password);
              Statement statement = connection.createStatement()) {
             System.out.println("We are connected");
-
-
-//        URL url = new URL("https://wooordhunt.ru/word/property");
-//        try (BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()))) {
-//            String line;
-//            while ((line = in.readLine()) != null) {
-//                System.out.println(line);
-//            }
-//        }
-
-
 //            ResultSet resultSet = statement.executeQuery("SELECT word, renew ,frequencyP FROM dictionary WHERE renew=false AND frequencyP=9");
             ResultSet resultSet = statement.executeQuery("SELECT word, renew ,frequencyP FROM dictionary WHERE renew=false");
 //            ResultSet resultSet = statement.executeQuery("SELECT word, renew ,frequencyP FROM dictionary WHERE frequencyP=6 and renew=false ");
@@ -39,21 +29,10 @@ public class FillingOfDict {
                 Document document = Jsoup.connect(url).get();
 
                 Elements forms = document.select(".t_inline_en");
-                System.out.println(forms.text() + "______________________________");
+                System.out.println(forms.text());
 
                 Elements transcription = document.select(".transcription");
                 System.out.println(transcription);
-
-//                Elements span = document.select("span");
-//
-//
-//                for (Element element : span) {
-//                    System.out.println(element.text());
-//                }
-
-                System.out.println("++++++++++++++++++++++++++");
-//                Elements allText = document.select("span:containsOwn(I/you/we/they)");
-//                System.out.println(allText.text());
 
                 String allText = document.text();
                 String iyouwethey = null;
