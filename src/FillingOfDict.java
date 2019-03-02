@@ -95,7 +95,10 @@ class FillingOfDict {
 
 
                 Elements transcription = document.select(".transcription");//транскрипция
-                String transcript = transcription.first().text();
+                String transcript = null;
+                if (transcription.size()!=0) {
+                    transcript = transcription.first().text();
+                }
 
                 Element rank = document.getElementById("rank_box");
                 String freq = "НД";
@@ -103,7 +106,7 @@ class FillingOfDict {
                     freq = rank.text();
                 }
 
-                statement.executeUpdate("update dictionary set transcriptionA='" + transcript + "',  translate='" + forms.text() + "', frequencyW='" + freq + "', renew=true WHERE word='" + wordFromDict + "';");
+                statement.executeUpdate("update dictionary set transcriptionA='" + transcript + "',  translate='" + forms.text().replace("\'", "\\'") + "', frequencyW='" + freq + "', renew=true WHERE word='" + wordFromDict + "';");
 
                 resultSet = statement.executeQuery("SELECT word, renew FROM dictionary WHERE renew=false");
             }

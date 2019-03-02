@@ -20,18 +20,22 @@ class AddWords {
 
                 String line;
                 int count = 0;
+                int countExisrWords = 0;
                 while ((line = br.readLine()) != null) {
                     int pos = line.indexOf(" ");
                     String wordS = line.substring(0, pos);
-                    ResultSet resultSet = statement.executeQuery("SELECT word FROM dictionary where word='" + wordS + "'");//класс для получения результатов запросов.
+                    ResultSet resultSet = statement.executeQuery("SELECT word FROM dictionary where word='" + wordS + "';");//класс для получения результатов запросов.
 
                     if (!resultSet.next()) {
                         System.out.println(wordS);
-                        statement.executeUpdate("insert into dictionary (word, newWord,renew) values ('" + wordS + "',true,false );");
+                        statement.executeUpdate("insert into dictionary (word, newWord,renew) values ('" + wordS + "', true, false );");
                         count++;
+                    } else {
+                        countExisrWords++;
                     }
                 }
                 System.out.println("Добавлено слов-" + count);
+                System.out.println("Ранее были добавлены-" + countExisrWords);
             }
         }
     }

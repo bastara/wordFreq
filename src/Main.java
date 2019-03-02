@@ -61,6 +61,7 @@ public class Main {
             System.out.println("2-добавить новые слова в словарь");
             System.out.println("3-заполнить новые слова");
             System.out.println("4-обработка не найденных слов");
+            System.out.println("5-добавить слова со страницы сайта");
             System.out.println("n-создать текст для обработки со страницы сайта");
             System.out.println("0-выход");
             i = scanner.nextInt();
@@ -83,6 +84,9 @@ public class Main {
                 if (i == 1) {
                     new WithoutTranslate().allWords();
                 }
+            }
+            if (i == 5) {
+                new GetWordsFromUrl().getWordsFromUrl();
             }
         } while (i < 10);
 
